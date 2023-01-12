@@ -1,8 +1,14 @@
+enum Role {
+    ADMIN = "ADMIN",
+    READ_ONLY = 21,
+};
+
 var obj = {
   name: "ilya",
   age: 24,
   hobby: ["walking", "sleeping"],
   favorite_hobby: ["sports", "cooking"],
+  role: Role.ADMIN
 };
 type product = {
   id: string;
@@ -16,7 +22,7 @@ type product = {
 var product = {
   id: "abc1",
   price: 12.99,
-  tags: ["great-offer", "hot-and-new"],
+  tags: ["nice-offer", "hot-and-new"],
   details: {
     title: "Red Carpet",
     description: "Agreat carpet - almost brand-new!",
