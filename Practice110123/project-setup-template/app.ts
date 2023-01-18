@@ -55,16 +55,33 @@ function combine(
   ) {
     result = +input1 + +input2;
   } else {
-    result = input1.toString() + input2.toString()
+    result = input1.toString() + input2.toString();
   }
   return result;
 }
 
-let combinedAge = combine(30, 25, "as-num")
-console.log(combinedAge)
+let combinedAge = combine(30, 25, "as-num");
+console.log(combinedAge);
 
-let combinedStringAge = combine("30", "25", "as-num")
-console.log(combinedStringAge)
+let combinedStringAge = combine("30", "25", "as-num");
+console.log(combinedStringAge);
 
-let combinedNames = combine("James", 24, "as-string")
-console.log(combinedNames)
+let combinedNames = combine("James", 24, "as-string");
+console.log(combinedNames);
+
+type alias = string | number;
+type objectAlias = { name: string; uid: alias };
+
+const logDetails = (uid: alias, item: alias) => {
+  console.log(`${item} has uid of ${uid}`);
+};
+const greet = (user: objectAlias) => {
+  console.log(`${user.name} says hello`);
+};
+let user1: objectAlias = { name: "Ilya", uid: "3" };
+logDetails("id", "item test");
+greet(user1);
+
+type User = { name: string } | string;
+let u1: User = { name: "Max" };
+u1 = "Michael";
