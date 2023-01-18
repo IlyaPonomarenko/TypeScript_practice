@@ -85,3 +85,21 @@ greet(user1);
 type User = { name: string } | string;
 let u1: User = { name: "Max" };
 u1 = "Michael";
+
+function add(a: number, b: number, printCb: (string, any) => void) {
+  printCb("result", a + b);
+}
+function prettyPrint(label: string, val: any) {
+  console.log(`${label} : ${val}`);
+  console.log("---------------\n");
+}
+add(5, 2, prettyPrint);
+
+function sendRequest(data: string, cb: (response: any) => void) {
+  // ... sending a request with "data"
+  return cb({ data: "Hi there!" });
+}
+sendRequest("Send this!", (response) => {
+  console.log(response);
+  return true;
+});
