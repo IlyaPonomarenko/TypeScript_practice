@@ -1,19 +1,15 @@
 console.log("PMApp in TS begins...");
 
-function autobind(
-    target:any,
-    methodName: string,
-    descriptor: PropertyDescriptor,
-){
-    const originalmethod = descriptor.value;
-    const adjDescriptor: PropertyDescriptor = {
-        configurable: true,
-        get(){
-            const boundFn = originalmethod.bind(this);
-            return boundFn;
-        },
-    };
-    return adjDescriptor;
+function autobind(_: any, descriptor: PropertyDescriptor) {
+  const originalmethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    get() {
+      const boundFn = originalmethod.bind(this);
+      return boundFn;
+    },
+  };
+  return adjDescriptor;
 }
 
 class projectInput {
@@ -49,17 +45,39 @@ class projectInput {
     this.descriptionInputElement = this.element.querySelector(
       "#description"
     ) as HTMLInputElement;
-
   }
+  private gatherUserInput(): [string, string, number] | void {
+    const enteredTitle = this.titleInputElement.value;
+    const enteredDescription = this.descriptionInputElement.value;
+    const enteredPeople = this.peopleInputElement.value;
+    if( enteredTitle.trim().length === 0 ||
+    enteredDescription.trim().length === 0 ||
+     enteredPeople.trim().length === 0){
+        alert("invalid input")
+     }else{
+        return [enteredTitle, enteredDescription, +enteredPeople]
+     }
+  }
+  private clearInputs(){
+    this.titleInputElement.value = ""; 
+    this.descriptionInputElement.value = ""; 
+    this.peopleInputElement.value = ""; 
+  }
+
   private attach() {
     this.hostElement.insertAdjacentElement("afterbegin", this.element);
   }
-  private configure(){
-    this.element.addEventListener("submit",this.submitHandler.bind(this))
+  private configure() {
+    this.element.addEventListener("submit", this.submitHandler.bind(this));
   }
-  private submitHandler(event: Event){
+  private submitHandler(event: Event) {
     event.preventDefault();
-    console.log(this.titleInputElement.value)
+    const userInput = this.gatherUserInput();
+    if (Array.isArray(userInput)){
+        const [title, desc, people] = userInput;
+        console.log(title, desc, people);
+        this.clearInputs()
+    }
   }
 }
 const prjInput = new projectInput();

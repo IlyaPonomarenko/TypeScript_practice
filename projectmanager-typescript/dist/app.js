@@ -1,5 +1,16 @@
 "use strict";
 console.log("PMApp in TS begins...");
+function autobind(_, descriptor) {
+    const originalmethod = descriptor.value;
+    const adjDescriptor = {
+        configurable: true,
+        get() {
+            const boundFn = originalmethod.bind(this);
+            return boundFn;
+        },
+    };
+    return adjDescriptor;
+}
 class projectInput {
     constructor() {
         this.templateElement = document.getElementById("project-input");
@@ -13,6 +24,24 @@ class projectInput {
         this.peopleInputElement = this.element.querySelector("#people");
         this.descriptionInputElement = this.element.querySelector("#description");
     }
+    gatherUserInput() {
+        const enteredTitle = this.titleInputElement.value;
+        const enteredDescription = this.descriptionInputElement.value;
+        const enteredPeople = this.peopleInputElement.value;
+        if (enteredTitle.trim().length === 0 ||
+            enteredDescription.trim().length === 0 ||
+            enteredPeople.trim().length === 0) {
+            alert("invalid input");
+        }
+        else {
+            return [enteredTitle, enteredDescription, +enteredPeople];
+        }
+    }
+    clearInputs() {
+        this.titleInputElement.value = "";
+        this.descriptionInputElement.value = "";
+        this.peopleInputElement.value = "";
+    }
     attach() {
         this.hostElement.insertAdjacentElement("afterbegin", this.element);
     }
@@ -21,7 +50,12 @@ class projectInput {
     }
     submitHandler(event) {
         event.preventDefault();
-        console.log(this.titleInputElement.value);
+        const userInput = this.gatherUserInput();
+        if (Array.isArray(userInput)) {
+            const [title, desc, people] = userInput;
+            console.log(title, desc, people);
+            this.clearInputs();
+        }
     }
 }
 const prjInput = new projectInput();
