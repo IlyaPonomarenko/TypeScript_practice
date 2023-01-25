@@ -25,19 +25,13 @@ function validate(validateInput: Validator) {
   ) {
     isValid && validateInput.value.length >= validateInput.maxLength;
   }
-  if (
-    validateInput.min != null &&
-    typeof validateInput.value === "number"
-  ) {
+  if (validateInput.min != null && typeof validateInput.value === "number") {
     isValid = isValid && validateInput.value >= validateInput.min;
   }
-  if (
-    validateInput.max != null &&
-    typeof validateInput.value === "number"
-  ) {
+  if (validateInput.max != null && typeof validateInput.value === "number") {
     isValid = isValid && validateInput.value >= validateInput.max;
   }
-  
+  return isValid;
 }
 
 function autobind(_: any, descriptor: PropertyDescriptor) {
@@ -90,10 +84,30 @@ class projectInput {
     const enteredTitle = this.titleInputElement.value;
     const enteredDescription = this.descriptionInputElement.value;
     const enteredPeople = this.peopleInputElement.value;
+    const titleValidate: Validator = {
+      value: enteredTitle,
+      required: true,
+      minLength: 0,
+      maxLength: 0,
+    };
+    const descriptionValidate: Validator = {
+      value: enteredDescription,
+      minLength: 5,
+      required: true,
+      maxLength: 0,
+    };
+    const peopleValidate: Validator = {
+      value: enteredPeople,
+      max: 5,
+      min: 1,
+      required: true,
+      minLength: 0,
+      maxLength: 0,
+    };
     if (
-      enteredTitle.trim().length === 0 ||
-      enteredDescription.trim().length === 0 ||
-      enteredPeople.trim().length === 0
+      !validate(titleValidate) ||
+      !validate(descriptionValidate) ||
+      !validate(peopleValidate)
     ) {
       alert("invalid input");
     } else {
