@@ -15,11 +15,9 @@
 class Product {
   title: string;
   price: number;
-  private isListed: boolean;
 
   constructor(name: string, pr: number) {
     this.title = name;
     this.price = pr;
-    this.isListed = true;
   }
 }
