@@ -1,14 +1,7 @@
-/// <reference path="models/drag-and-drop.ts" />
-/// <reference path="models/project-model.ts" />
-/// <reference path="state/project-state.ts" />
-/// <reference path="decorators/autobind.ts" />
-/// <reference path="components/base-component.ts" />
-/// <reference path="components/project-input.ts" />
-/// <reference path="components/project-item.ts" />
-/// <reference path="components/project-list.ts" />
-namespace App {
+import {ProjectInput} from "../src/components/project-input"
+import {ProjectList} from "../src/components/project-list"
+
 
   new ProjectInput();
   new ProjectList('active');
   new ProjectList('finished');
-}
