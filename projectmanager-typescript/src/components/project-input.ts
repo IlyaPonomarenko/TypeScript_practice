@@ -1,8 +1,5 @@
-/// <reference path="base-component.ts" />
-/// <reference path="../decorators/autobind.ts" />
-
 import { Component } from "./base-component.js";
-import {Validatable, validate} from "../utils/validation"
+import {Validatable, validate} from "../utils/validation.js"
 import { autobind } from "../decorators/autobind.js"
 import { projectState } from "../state/project-state.js";
 

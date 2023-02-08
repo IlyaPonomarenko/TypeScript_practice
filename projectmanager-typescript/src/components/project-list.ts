@@ -1,6 +1,3 @@
-/// <reference path="../decorators/autobind.ts" />
-/// <reference path="../models/project-model.ts" />
-/// <reference path="../models/drag-and-drop.ts" />
 import { DragTarget } from "../models/drag-and-drop.js";
 import { Component } from "./base-component.js";
 import { autobind } from "../decorators/autobind.js"
