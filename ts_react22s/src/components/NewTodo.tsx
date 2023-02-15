@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 const NewTodo: React.FC = () => {
-    const submitHandler = (event: React.FormEvent) =>{
+    //Establishes a coonnection with an element
+    const textInputRef = useRef<HTMLInputElement>(null);
+    const submitHandler = (event: React.FormEvent) => {
         event.preventDefault();
+        const inputValue = textInputRef.current!.value;
+        console.log(inputValue)
     }
     return (
-        <form>
+        <form onSubmit={submitHandler}>
             <div>
                 <label htmlFor="todo-text">Todo Text</label>
-                <input type="text" id='todo-text' />
+                <input type="text" id='todo-text' ref={textInputRef} />
             </div>
             <button type='submit'>add todo</button>
         </form>
