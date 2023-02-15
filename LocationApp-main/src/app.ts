@@ -2,7 +2,7 @@ import axios from "axios";
 
 const form = document.querySelector("form")! as HTMLFormElement;
 const addressInput = document.getElementById("address")! as HTMLInputElement;
-const google_key = "AIzaSyAuyPWb0vgdZ3j5PZ6ptox5pFoEUMoYMao";
+const google_key = "";
 type GoogleGeoCode = {
   results: { geometry: { location: { lat: number; lng: number } } }[];
   status: "OK" | "ZERO_RESULTS";
