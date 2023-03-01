@@ -6,9 +6,7 @@ import express, {
 } from "express"; // needs "npm i @types/express"
 import { Todo } from "../models/todo";
 
-
 const TODOS: Todo[] = [];
-
 
 export const createTodo: RequestHandler = (req, res, next) => {
   // const text = req.body.text;
@@ -20,4 +18,28 @@ export const createTodo: RequestHandler = (req, res, next) => {
 
 export const getTodos: RequestHandler = (req, res, next) => {
   res.json({ todos: TODOS });
+};
+
+export const updateTodo: RequestHandler<{ id: string }> = (req, res, next) => {
+  const todoid = req.params.id;
+  const updatedText = (req.body as { text: string }).text;
+  const todoIndex = TODOS.findIndex((todo) => todo.id === todoid);
+
+  if (todoIndex < 0) {
+    throw new Error("Could not find id");
+  }
+
+  TODOS[todoIndex] = new Todo(TODOS[todoIndex].id, updatedText);
+  res.json({ message: "Updated", updateTodo: TODOS[todoIndex] });
+};
+
+export const deleteTodo: RequestHandler<{ id: string }> = (req, res, next) => {
+  const todoid = req.params.id;
+  const todoIndex = TODOS.findIndex((todo) => todo.id === todoid)
+  if(todoIndex) {
+    TODOS.splice(todoIndex,1)
+  } else {
+    throw new Error("Could not find id")
+  }
+  res.json({message:"Deleted"})
 };
